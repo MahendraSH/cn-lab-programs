@@ -1,12 +1,13 @@
 # cn lab programs
 
-## Q1
+# Q1
 
 ```md
 1. Write a program to implement the following Error Detection
    Techniques
    a. Single Parity Check
-   b. Cyclic R
+   b. Cyclic Redundancy Check (CRC)
+   c. Checksum
 ```
 
 ## Q1a.cpp
@@ -67,7 +68,7 @@ int main()
 
         cout << "1" << endl;
     }
-    else
+    else   
     {
         cout << "0" << endl;
     }
@@ -102,18 +103,18 @@ int main()
 ### output :
 
 ```md
- Enter the number of bits
+Enter the number of bits
 5
- Enter the bits of message  from   sender   side  with space
+Enter the bits of message from sender side with space
 1 0 0 0 1
- Enter the  parity  1 for even or 0 for odd
+Enter the parity 1 for even or 0 for odd
 0
- the message send my sender is
+the message send my sender is
 1 0 0 0 1 1
- Enter the bits of message  from reciver  side  with space
+Enter the bits of message from reciver side with space
 1 0 0 0 1 1
- the message is correct
- the message is : 1 0 0 0 1
+the message is correct
+the message is : 1 0 0 0 1
 ```
 
 ---
@@ -133,3 +134,92 @@ int main()
 ```
 
 ---
+
+# Q2 
+``` md 
+2. Write a program to implement Caesar substitution cipher.
+```
+## Q2.cpp
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+string encrypt(string s, int n)
+{
+    string result = "";
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (s[i] == ' ')
+        {
+            result += ' ';
+        }
+        else if (isupper(s[i]))
+        {
+            result += char((s[i] + n - 'A') % 26 + 'A');
+        }
+        else if (islower(s[i]))
+        {
+            result += char((s[i] + n - 'a') % 26 + 'a');
+        }
+        else
+        {
+            result += char((s[i] + n - '0') % 10 + '0');
+        }
+    }
+    return result;
+}
+
+string decryption(string s, int n)
+{
+
+    string result = "";
+    for (int i = 0; i < s.length(); i++)
+    {
+        if (s[i] == ' ')
+        {
+            result += ' ';
+        }
+        else if (isupper(s[i]))
+        {
+            result += char((s[i] + n - 'A' + 26) % 26 + 'A');
+        }
+        else if (islower(s[i]))
+        {
+            result += char((s[i] + n - 'a' + 26) % 26 + 'a');
+        }
+        else
+        {
+            result += char((s[i] + n - '0' + 10) % 10 + '0');
+        }
+    }
+    return result;
+}
+int main()
+{
+    string s;
+    cout << "enter text : " << endl;
+    getline(cin, s);
+    cout << " enter the adder : " << endl;
+    int n;
+
+    cin >> n;
+    n = n % 26;
+    cout << " text : " << s << endl;
+    cout << " adder : " << n << endl;
+    cout << " encrypted text : " << encrypt(s, n) << endl;
+    cout << " decrypted text : " << decryption(encrypt(s, n), -n) << endl;
+}
+
+```
+### output 
+```md
+enter text : 
+some 12839 849 djls
+ enter the adder : 
+894
+ text : some 12839 849 djls
+ adder : 10
+ encrypted text : cywo 12839 849 ntvc
+ decrypted text : some 12839 849 djls
+
+```
