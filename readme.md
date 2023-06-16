@@ -27,7 +27,7 @@ This scheme makes the total number of 1’s even, that is why it is called even 
 #include <bits/stdc++.h>
 using namespace std;
 
-int parity(int a[], int n)
+int findParity(int a[], int n)
 {
     int count = 0;
     for (int i = 0; i < n; i++)
@@ -38,20 +38,48 @@ int parity(int a[], int n)
         }
     }
 
-    return (count % 2 == 0) ? 1 : 0;
+    return count % 2 == 0;
 }
 int main()
 {
     int n;
     cout << " Enter the number of bits" << endl;
     cin >> n;
-    cout << " Enter the bits with space  " << endl;
-    int *a = new int[n];
+    cout << " Enter the bits of message  from   sender   side  with space  " << endl;
+    int *b = new int[n + 1];
     for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+
+    cout << " Enter the  parity  1 for even or 0 for odd  " << endl;
+    int parity;
+    cin >> parity;
+
+    int snderSideParity = findParity(b, n);
+    cout << " the message send my sender is " << endl;
+    for (int i = 0; i < n; i++)
+    {
+        cout << b[i] << " ";
+    }
+    if (snderSideParity != parity)
+    {
+
+        cout << "1" << endl;
+    }
+    else
+    {
+        cout << "0" << endl;
+    }
+
+    cout << " Enter the bits of message  from reciver  side  with space  " << endl;
+    int *a = new int[n + 1];
+    for (int i = 0; i <= n; i++)
     {
         cin >> a[i];
     }
-    if (parity(a, n))
+
+    if (parity == findParity(a, (n + 1)))
     {
         cout << " the message is correct" << endl;
         cout << " the message is : ";
@@ -62,8 +90,10 @@ int main()
     }
     else
     {
+        cout << findParity(a, (n + 1)) << endl;
+        string err = parity ? "even  " : "odd";
         cout << " the message is incorrect" << endl;
-        cout << " the  parity error " << endl;
+        cout << " the  parity" << err << " error " << endl;
     }
 }
 
@@ -72,12 +102,18 @@ int main()
 ### output :
 
 ```md
-Enter the number of bits
-4
-Enter the bits with space  
-1 0 1 0
-the message is correct
-the message is : 1 0 1 0
+ Enter the number of bits
+5
+ Enter the bits of message  from   sender   side  with space
+1 0 0 0 1
+ Enter the  parity  1 for even or 0 for odd
+0
+ the message send my sender is
+1 0 0 0 1 1
+ Enter the bits of message  from reciver  side  with space
+1 0 0 0 1 1
+ the message is correct
+ the message is : 1 0 0 0 1
 ```
 
 ---
