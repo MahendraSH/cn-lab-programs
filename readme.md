@@ -363,8 +363,9 @@ int main()
     {
         cout << e[i] << "\t " << d[i] << endl;
     }
-
-    string message = "abcdefghijklmnopqrstuvwxyz";
+ // string message = "abcdefghijklmnopqrstuvwxyz";
+    string message = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    // string message="12345678901234567890";
     encryption(message);
     cout << " Encryption messge " << endl;
     for (auto i : ciperTextInt)
