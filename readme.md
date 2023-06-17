@@ -240,14 +240,17 @@ decrypted text : some 12839 849 djls
 #include <bits/stdc++.h>
 using namespace std;
 
+int n;
 vector<int> e;
 vector<int> d;
-vector<char> ciphertext;
+vector<long int> ciperTextInt;
 
 int p, q;
 bool isPrime(int n);
 int find_d(int e, int n);
 void find_e_and_d(int n);
+void encryption(string plaintext);
+string decryption(vector<char> ciphertext);
 
 bool isPrime(int n)
 {
@@ -294,6 +297,42 @@ int find_d(int e, int n)
     }
 }
 
+void encryption(string plaintext)
+{
+    for (auto p : plaintext)
+    {
+
+        int x = p - 'a';
+        int key = e[0];
+        long int k = 1;
+        for (int i = 0; i < key; i++)
+        {
+            k = k * x;
+            k = k % n;
+        }
+
+        ciperTextInt.emplace_back(k);
+    }
+}
+
+string decryption()
+{
+    string s = "";
+    for (auto p : ciperTextInt)
+    {
+        int key = d[0];
+        long int k = 1;
+        for (int i = 0; i < key; i++)
+        {
+            k = k * p;
+            k = k % n;
+        }
+        char c = k + 'a';
+        s += c;
+    }
+    return s;
+}
+
 int main()
 {
 
@@ -313,8 +352,8 @@ int main()
         cout << "the entered prime number is not prime" << endl;
         return 0;
     }
+    n = p * q;
 
-    int n = p * q;
     int f = (p - 1) * (q - 1);
     find_e_and_d(f);
 
@@ -323,14 +362,40 @@ int main()
     {
         cout << e[i] << "\t " << d[i] << endl;
     }
-}
 
+    string message = "abcdefghijklmnopqrstuvwxyz";
+    encryption(message);
+    cout << " Encryption messge " << endl;
+    for (auto i : ciperTextInt)
+    {
+        cout << (char)(i + 'a');
+    }
+    cout << endl;
+    cout << " decryption message :" << endl;
+    cout << decryption() << endl;
+    return 0;
+}
 ```
 
 ### output
 
-```md
-
+```txt
+Enter a prime number
+11
+ Enter another prime number
+7
+ the possibe values of e and d are
+13       37
+17       53
+23       47
+37       13
+43       60
+47       23
+53       17
+ Encryption messge
+abçû{ƒäô¢klmèÆíå¬Å₧ªvwxò¥
+ decryption message :
+abcdefghijklmnopqrstuvwxyz
 ```
 
 ---
