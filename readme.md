@@ -68,7 +68,7 @@ int main()
 
         cout << "1" << endl;
     }
-    else   
+    else
     {
         cout << "0" << endl;
     }
@@ -135,11 +135,14 @@ the message is : 1 0 0 0 1
 
 ---
 
-# Q2 
-``` md 
+# Q2
+
+```md
 2. Write a program to implement Caesar substitution cipher.
 ```
+
 ## Q2.cpp
+
 ```cpp
 #include <bits/stdc++.h>
 using namespace std;
@@ -211,15 +214,188 @@ int main()
 }
 
 ```
-### output 
-```md
-enter text : 
-some 12839 849 djls
- enter the adder : 
-894
- text : some 12839 849 djls
- adder : 10
- encrypted text : cywo 12839 849 ntvc
- decrypted text : some 12839 849 djls
 
+### output
+
+```md
+enter text :
+some 12839 849 djls
+enter the adder :
+894
+text : some 12839 849 djls
+adder : 10
+encrypted text : cywo 12839 849 ntvc
+decrypted text : some 12839 849 djls
 ```
+
+---
+
+## Q3.cpp
+
+```md
+3. implement RSA
+```
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+int n;
+vector<int> e;
+vector<int> d;
+vector<long int> ciperTextInt;
+
+int p, q;
+bool isPrime(int n);
+int find_d(int e, int n);
+void find_e_and_d(int n);
+void encryption(string plaintext);
+string decryption(vector<char> ciphertext);
+
+bool isPrime(int n)
+{
+    if (n <= 1)
+    {
+        return false;
+    }
+    for (int i = 2; i < sqrt(n); i++)
+    {
+        if (n % i == 0)
+            return false;
+    }
+    return true;
+}
+
+void find_e_and_d(int n)
+{
+    for (int i = 2; i < n; i++)
+    {
+        if (__gcd(i, n) == 1 && isPrime(i) == true)
+        {
+            if (i != p and i != q)
+            {
+
+                e.emplace_back(i);
+                int x = find_d(i, n);
+                if (x != i)
+                    d.emplace_back(x);
+                else
+                    e.pop_back();
+            }
+        }
+    }
+}
+int find_d(int e, int n)
+{
+    for (int i = 2; i < n; i++)
+    {
+        if ((e * i) % n == 1 and i != q and i != p)
+        {
+            return i;
+            break;
+        }
+    }
+}
+
+void encryption(string plaintext)
+{
+    for (auto p : plaintext)
+    {
+
+        int x = p - 'a';
+        int key = e[0];
+        long int k = 1;
+        for (int i = 0; i < key; i++)
+        {
+            k = k * x;
+            k = k % n;
+        }
+
+        ciperTextInt.emplace_back(k);
+    }
+}
+
+string decryption()
+{
+    string s = "";
+    for (auto p : ciperTextInt)
+    {
+        int key = d[0];
+        long int k = 1;
+        for (int i = 0; i < key; i++)
+        {
+            k = k * p;
+            k = k % n;
+        }
+        char c = k + 'a';
+        s += c;
+    }
+    return s;
+}
+
+int main()
+{
+
+    cout << "Enter a prime number" << endl;
+    cin >> p;
+    if (isPrime(p) == false)
+
+    {
+        cout << "the entered prime number is not prime" << endl;
+        return 0;
+    }
+
+    cout << " Enter another prime number" << endl;
+    cin >> q;
+    if (isPrime(q) == false)
+    {
+        cout << "the entered prime number is not prime" << endl;
+        return 0;
+    }
+    n = p * q;
+
+    int f = (p - 1) * (q - 1);
+    find_e_and_d(f);
+
+    cout << " the possibe values of e and d are " << endl;
+    for (int i = 0; i < e.size(); i++)
+    {
+        cout << e[i] << "\t " << d[i] << endl;
+    }
+
+    string message = "abcdefghijklmnopqrstuvwxyz";
+    encryption(message);
+    cout << " Encryption messge " << endl;
+    for (auto i : ciperTextInt)
+    {
+        cout << (char)(i + 'a');
+    }
+    cout << endl;
+    cout << " decryption message :" << endl;
+    cout << decryption() << endl;
+    return 0;
+}
+```
+
+### output
+
+```txt
+Enter a prime number
+11
+ Enter another prime number
+7
+ the possibe values of e and d are
+13       37
+17       53
+23       47
+37       13
+43       60
+47       23
+53       17
+ Encryption messge
+abçû{ƒäô¢klmèÆíå¬Å₧ªvwxò¥
+ decryption message :
+abcdefghijklmnopqrstuvwxyz
+```
+
+---
