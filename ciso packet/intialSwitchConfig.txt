@@ -1,0 +1,24 @@
+enable 
+config
+hostname some
+enable password  some123 
+enable secret some111
+
+line console 0 
+password some123
+login 
+exit
+
+line vty 0 15 
+password some123
+login 
+exit
+
+interface vlan 1
+ip address 192.12.12.12 255.255.255.0 
+no shutdown 
+exit
+ip default-gatway 192.12.12.1
+
+show running-config
+
