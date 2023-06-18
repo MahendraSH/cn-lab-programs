@@ -154,7 +154,7 @@ int main (){
 
 	int * a= new int [n ];
 	cout<< "Enter the message numebrs " <<endl;
-	for (int i=0;i <n;i++) 
+	for (int i=0;i <n;i++)
 		cin >>a[i];
 	int sender = c_sender(a,n);
 	c_reciver(a,n,sender);
@@ -436,6 +436,45 @@ Enter a prime number
 abçû{ƒäô¢klmèÆíå¬Å₧ªvwxò¥
  decryption message :
 abcdefghijklmnopqrstuvwxyz
+```
+
+---
+
+# Q4.cpp
+
+```cpp
+#include<bits/stdc++.h>
+using namespace std;
+int bucket_size=400;
+void bucket (int random  ,int n) {
+	if(random >bucket_size) {
+		cout<< " bucket overflow " << endl;
+	}
+	else {
+		while( random > n ) {
+			 cout << " bytes transfered is : " << n << endl;
+			 random -=n;
+		}
+		cout << " last bytes send = " << random << endl;
+		cout << " bucket is empty " << endl;
+	}
+	return ;
+}
+
+
+int main (){
+	int n;
+	cout << " Enter the size of output " <<endl;
+	cin>>n;
+	for (int i =0 ;i < 5;i++ ) {
+		int random = rand() % 1000;
+		cout << endl << " Generated packet : "<< random << endl;
+		bucket(random ,n) ;
+	}
+
+	return 0 ;
+}
+
 ```
 
 ---
