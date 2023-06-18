@@ -1,0 +1,68 @@
+//crc
+#include<iostream>
+using namespace std;
+
+int main(){
+    int dataSize, divisorSize;
+    int data[20], divisor[20], te[20], temp[20];
+    
+    cout<<"Enter data and divisor size: ";
+    cin>>dataSize>>divisorSize;
+    
+    int m = dataSize - divisorSize + 1;
+    
+    cout<<"Enter data: ";
+    for(int i=0; i<dataSize; i++){
+        cin>>data[i];
+        te[i] = data[i];
+    }
+    
+    cout<<"Enter divisor: ";
+    for(int i=0; i<divisorSize; i++){
+        cin>>divisor[i];
+    }
+    
+    int i=0;
+    for(i=dataSize; i<m; i++){
+        te[i] = 0;
+    }
+    
+    int l=divisorSize, t=0, e=0;
+    
+    int j=0;
+    for(i=0; i<dataSize; i++){
+        e = t = 0;
+        for(j=1; j<divisorSize; j++){
+            if((divisor[j] == 1 && data[j]== 1) || (divisor[j] == 0 && data[j] == 0)){
+                temp[j-1] = 0;
+                if(e != 1){
+                    t++;
+                    i++;
+                }
+            }else{
+                temp[j-1] = 1;    
+                e = 1;
+            }
+        }
+        j=0;
+        for(e=t; e<divisorSize-1; e++){
+            data[j] = temp[e];
+            j++;
+        }
+        for(j=j; j<divisorSize; j++){
+            if(l >= dataSize+1){
+                data[j] = 0;
+            }else{
+                data[j] = temp[l];
+                l++;
+            }
+        }
+    }
+    
+    cout<<"CRC bits are: ";
+    for(int i=0; i<divisorSize-1; i++){
+        cout<<temp[i]<<" ";
+    }
+    
+    
+}
